@@ -1,5 +1,6 @@
 import React from "react";
-import { Text, Container, Row, Card, Grid, Link, Image } from "@nextui-org/react";
+import Link from "next/link";
+import { Text, Container, Row, Card, Grid } from "@nextui-org/react";
 import styles from "../styles/Home.module.css";
 
 const Layout: React.FC = ({ children }) => {
@@ -7,8 +8,7 @@ const Layout: React.FC = ({ children }) => {
     <Container>
       <Row>
         <h2 className={styles.footer}>
-          <Link href="/">
-            {" "}
+          <Link href="/" passHref>
             <Text
               h1
               size={60}
