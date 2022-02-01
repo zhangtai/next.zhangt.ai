@@ -1,7 +1,7 @@
 ---
 title: Using RKE2
 created: "2022-01-30"
-updated: "2022-01-30"
+updated: "2022-02-01"
 description: Learn how to use RKE2
 tags: ["kubernetes"]
 ---
@@ -9,12 +9,12 @@ tags: ["kubernetes"]
 
 I used to setup my homelab kubernetes cluster with [Rancher] and [rke], both are products of Rancher. Honestly I haven't spent too much time on both. Until recently I want to setup kubernetes cluster, again. So I goto Rancher's website found that they have another product: RKE2.
 
-It's easy to setup just follow the official guide.
+It's easy to setup just follow the [RKE2 official installation guide]. Here is summary of my installtion manually, I opened a tmux session with 4 panes, one for server, 3 for agents. Each has 4 cores, 8GB RAM 160GB storage, they are VMs running on a host of ESXi instance.
 
-<SyntaxHighlighter language="javascript">
-{`const doStuff = () => {
-  return console.log('hey')
-}`}</SyntaxHighlighter>
+<SyntaxHighlighter language="shell">{`
+echo "hello"
+`}</SyntaxHighlighter>
 
 [rancher]: https://rancher.com
 [rke]: https://rancher.com/rke
+[RKE2 official installation guide]: https://docs.rke2.io/install/quickstart/
