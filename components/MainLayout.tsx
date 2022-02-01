@@ -12,9 +12,6 @@ const Layout: React.FC = ({ children }) => {
             <Text
               h1
               size={60}
-              css={{
-                textGradient: "45deg, $blue500 -50%, $pink500 50%",
-              }}
               weight="bold"
             >
               ZHANGT.AI

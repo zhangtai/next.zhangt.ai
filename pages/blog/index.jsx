@@ -41,15 +41,15 @@ export default function BlogHome({ posts }) {
               mb: "1rem",
             }}
           >
-            <Card clickable color="gradient" w="100%">
+            <Card clickable w="100%">
               <Text
-                css={{ fontWeight: "$bold", color: "$white" }}
+                css={{ fontWeight: "$bold", color: "$red400" }}
                 transform="capitalize"
                 h3
               >
                 {post.frontMatter.title}
               </Text>
-              <Text css={{ fontWeight: "$bold", color: "yellow" }} span>
+              <Text css={{ fontWeight: "$bold", color: "$gray500" }} span>
                 {post.frontMatter.description}: {post.frontMatter.created}
               </Text>
             </Card>

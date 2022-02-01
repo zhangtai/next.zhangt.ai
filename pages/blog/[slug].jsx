@@ -50,9 +50,7 @@ const PostPage = ({ frontMatter: { title }, mdxSource }) => {
       <div className="blog-wrapper">
         <Text
           h2
-          css={{
-            textGradient: "45deg, $pink800 40%, $purple400 80%",
-          }}
+          color="$red400"
         >
           {title}
         </Text>
