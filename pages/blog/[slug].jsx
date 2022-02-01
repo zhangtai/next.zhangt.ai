@@ -1,5 +1,7 @@
 import { serialize } from "next-mdx-remote/serialize";
 import { MDXRemote } from "next-mdx-remote";
+import Head from "next/head";
+import { Text } from "@nextui-org/react";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
@@ -42,8 +44,18 @@ export const getStaticProps = async ({ params: { slug } }) => {
 const PostPage = ({ frontMatter: { title }, mdxSource }) => {
   return (
     <Layout>
+      <Head>
+        <title>{title} ｜ ZHANGT.AI(张泰)</title>
+      </Head>
       <div className="blog-wrapper">
-        <h1>{title}</h1>
+        <Text
+          h2
+          css={{
+            textGradient: "45deg, $pink800 40%, $purple400 80%",
+          }}
+        >
+          {title}
+        </Text>
         <MDXRemote {...mdxSource} components={{ SyntaxHighlighter }} />
       </div>
     </Layout>
