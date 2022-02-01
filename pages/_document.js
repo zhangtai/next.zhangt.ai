@@ -9,6 +9,8 @@ class BlogDocument extends Document {
             rel="stylesheet"
             href="https://unpkg.com/dracula-prism/dist/css/dracula-prism.css"
           ></link>
+          <meta name="description" content="Personal website for Tai Zhang(张泰)" />
+          <link rel="icon" href="/favicon.ico" />
         </Head>
         <body>
           <Main />
