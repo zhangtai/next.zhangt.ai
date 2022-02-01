@@ -47,7 +47,7 @@ const Layout: React.FC = ({ children }) => {
 
       <Row>
         <Grid.Container gap={2} justify="center">
-          <Grid xs={4}>
+          <Grid xs={24}>
             <Card css={{ px: "$4" }}>
               <Text
                 h1
@@ -71,7 +71,7 @@ const Layout: React.FC = ({ children }) => {
               </Text>
             </Card>
           </Grid>
-          <Grid xs>{children}</Grid>
+          <Grid xs={24}>{children}</Grid>
         </Grid.Container>
       </Row>
       <Row>
