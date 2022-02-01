@@ -6,15 +6,58 @@ description: Learn how to use RKE2
 tags: ["kubernetes"]
 ---
 
-
 I used to setup my homelab kubernetes cluster with [Rancher] and [rke], both are products of Rancher. Honestly I haven't spent too much time on both. Until recently I want to setup kubernetes cluster, again. So I goto Rancher's website found that they have another product: RKE2.
 
 It's easy to setup just follow the [RKE2 official installation guide]. Here is summary of my installtion manually, I opened a tmux session with 4 panes, one for server, 3 for agents. Each has 4 cores, 8GB RAM 160GB storage, they are VMs running on a host of ESXi instance.
 
+## Server
+
 <SyntaxHighlighter language="shell">{`
-echo "hello"
+# Add proxy only if you have such dependency
+curl -sfL https://get.rke2.io | sudo https_proxy=http://192.168.3.1:8889 sh -
+
+sudo systemctl enable rke2-server.service
+sudo systemctl start rke2-server.service
+journalctl -u rke2-server -f
+sudo cat /var/lib/rancher/rke2/server/node-token
+`}</SyntaxHighlighter>
+
+## Agent
+
+<SyntaxHighlighter language="shell">{`
+curl -sfL https://get.rke2.io | sudo https_proxy=http://192.168.3.1:8889 INSTALL_RKE2_TYPE="agent" sh -
+sudo systemctl enable rke2-agent.service
+sudo mkdir -p /etc/rancher/rke2/
+sudo bash -c 'cat > /etc/rancher/rke2/config.yaml <<EOF
+server: https://192.168.3.60:9345
+token: <token from server node>
+EOF'
+
+sudo bash -c 'cat > /etc/default/rke2-agent <<EOF
+CONTAINERD_HTTP_PROXY=http://192.168.3.1:8889
+CONTAINERD_HTTPS_PROXY=http://192.168.3.1:8889
+CONTAINERD_NO_PROXY=127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,.svc,.cluster.local
+EOF'
+
+sudo systemctl start rke2-agent.service
 `}</SyntaxHighlighter>
 
 [rancher]: https://rancher.com
 [rke]: https://rancher.com/rke
 [RKE2 official installation guide]: https://docs.rke2.io/install/quickstart/
+
+## StorageClass: Longhorn
+
+- https://longhorn.io/docs/1.2.3/deploy/install/
+- https://longhorn.io/docs/1.2.3/deploy/accessing-the-ui/longhorn-ingress/
+
+Just install according to the official guide, add ingress hostname if you want to access the dashboard by domain.
+
+<SyntaxHighlighter language="shell">{`
+spec:
+  rules:
+    - host: longhorn.lan
+      http:
+        paths:
+          # ...
+`}</SyntaxHighlighter>
