@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { Text } from "@nextui-org/react";
+import { Text, Link } from "@nextui-org/react";
 import { Layout } from "../components/MainLayout";
 
 const AboutSite: NextPage = () => {
@@ -14,7 +14,7 @@ const AboutSite: NextPage = () => {
           <Text>
             This website is build with Next.js and NextUI. I started it from
             30-Jan-2022, after exploring{" "}
-            <a href="https://github.com/trending">GitHub Trending</a> of that
+            <Link icon href="https://github.com/trending">GitHub Trending</Link> of that
             day and found the NextUI repository, so I wanted to give it a try,
             the best you can do to learn something is to get your hands dirty
             and try it.
@@ -32,14 +32,14 @@ const AboutSite: NextPage = () => {
           </Text>
           <ul>
             <li>
-              <a href="https://nextjs.org/docs/advanced-features/using-mdx">
+              <Link icon href="https://nextjs.org/docs/advanced-features/using-mdx">
                 Using MDX with Next.js
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="https://blog.jetbrains.com/webstorm/2021/10/building-a-blog-with-next-js-and-mdx/">
+              <Link icon href="https://blog.jetbrains.com/webstorm/2021/10/building-a-blog-with-next-js-and-mdx/">
                 Building a Blog With Next.js and MDX
-              </a>
+              </Link>
             </li>
           </ul>
           <Text>
