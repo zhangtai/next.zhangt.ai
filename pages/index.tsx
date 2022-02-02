@@ -1,8 +1,7 @@
-import type { NextPage } from "next";
-import Head from "next/head";
+import type { NextPage } from "next"
+import Head from "next/head"
 import { Text } from "@nextui-org/react"
-import { Layout } from "../components/MainLayout";
-
+import { Layout } from "../components/MainLayout"
 
 const Home: NextPage = () => {
   return (

@@ -6,6 +6,7 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { Layout } from "../../components/MainLayout";
+import Mermaid from "../../components/Mermaid";
 
 export const getStaticPaths = async () => {
   const files = fs.readdirSync(path.join("posts"));
@@ -52,7 +53,7 @@ const PostPage = ({ frontMatter: { title }, mdxSource }) => {
         <Text h2 color="$red400">
           {title}
         </Text>
-        <MDXRemote {...mdxSource} components={{ }} />
+        <MDXRemote {...mdxSource} components={{ Mermaid }} />
       </div>
     </Layout>
   );
