@@ -25,7 +25,6 @@ sudo cat /var/lib/rancher/rke2/server/node-token
 
 ## Agent
 
-
 ```shell
 curl -sfL https://get.rke2.io | sudo https_proxy=http://192.168.3.1:8889 INSTALL_RKE2_TYPE="agent" sh -
 sudo systemctl enable rke2-agent.service
@@ -55,11 +54,11 @@ sudo systemctl start rke2-agent.service
 
 Just install according to the official guide, add ingress hostname if you want to access the dashboard by domain.
 
-<SyntaxHighlighter language="shell">{`
+```yaml
 spec:
   rules:
     - host: longhorn.lan
       http:
         paths:
           # ...
-`}</SyntaxHighlighter>
+```

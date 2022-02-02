@@ -5,7 +5,6 @@ import { Text } from "@nextui-org/react";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { Layout } from "../../components/MainLayout";
 
 export const getStaticPaths = async () => {
