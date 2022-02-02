@@ -38,7 +38,12 @@ const AboutSite: NextPage = () => {
             </li>
             <li>
               <Link icon href="https://blog.jetbrains.com/webstorm/2021/10/building-a-blog-with-next-js-and-mdx/">
-                Building a Blog With Next.js and MDX
+                <a>Building a Blog With Next.js and MDX</a>
+              </Link>
+            </li>
+            <li>
+              <Link icon href="https://github.com/hashicorp/next-mdx-remote">
+                <a>hashicorp/next-mdx-remote</a>
               </Link>
             </li>
           </ul>

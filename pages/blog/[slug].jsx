@@ -30,7 +30,9 @@ export const getStaticProps = async ({ params: { slug } }) => {
   );
 
   const { data: frontMatter, content } = matter(markdownWithMeta);
-  const mdxSource = await serialize(content);
+  const mdxSource = await serialize(content, {
+    mdxOptions: { remarkPlugins: [require("remark-prism")] },
+  });
 
   return {
     props: {
@@ -48,13 +50,10 @@ const PostPage = ({ frontMatter: { title }, mdxSource }) => {
         <title>{title} ｜ ZHANGT.AI(张泰)</title>
       </Head>
       <div className="blog-wrapper">
-        <Text
-          h2
-          color="$red400"
-        >
+        <Text h2 color="$red400">
           {title}
         </Text>
-        <MDXRemote {...mdxSource} components={{ SyntaxHighlighter }} />
+        <MDXRemote {...mdxSource} components={{ }} />
       </div>
     </Layout>
   );

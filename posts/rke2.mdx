@@ -12,7 +12,8 @@ It's easy to setup just follow the [RKE2 official installation guide]. Here is s
 
 ## Server
 
-<SyntaxHighlighter language="shell">{`
+
+```shell
 # Add proxy only if you have such dependency
 curl -sfL https://get.rke2.io | sudo https_proxy=http://192.168.3.1:8889 sh -
 
@@ -20,11 +21,12 @@ sudo systemctl enable rke2-server.service
 sudo systemctl start rke2-server.service
 journalctl -u rke2-server -f
 sudo cat /var/lib/rancher/rke2/server/node-token
-`}</SyntaxHighlighter>
+```
 
 ## Agent
 
-<SyntaxHighlighter language="shell">{`
+
+```shell
 curl -sfL https://get.rke2.io | sudo https_proxy=http://192.168.3.1:8889 INSTALL_RKE2_TYPE="agent" sh -
 sudo systemctl enable rke2-agent.service
 sudo mkdir -p /etc/rancher/rke2/
@@ -40,7 +42,7 @@ CONTAINERD_NO_PROXY=127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,.svc,.cl
 EOF'
 
 sudo systemctl start rke2-agent.service
-`}</SyntaxHighlighter>
+```
 
 [rancher]: https://rancher.com
 [rke]: https://rancher.com/rke
