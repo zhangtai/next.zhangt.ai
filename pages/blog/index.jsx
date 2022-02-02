@@ -1,12 +1,12 @@
-import fs from "fs";
-import path from "path";
-import matter from "gray-matter";
-import Head from "next/head";
-import { Card, Text, Link } from "@nextui-org/react";
-import { Layout } from "../../components/MainLayout";
+import fs from "fs"
+import path from "path"
+import matter from "gray-matter"
+import Head from "next/head"
+import { Card, Text, Link } from "@nextui-org/react"
+import { Layout } from "../../components/MainLayout"
 
 export const getStaticProps = async () => {
-  const files = fs.readdirSync(path.join("posts"));
+  const files = fs.readdirSync(path.join("posts"))
   const posts = files.map((filename) => {
     const markdownWithMeta = fs.readFileSync(
       path.join("posts", filename),
@@ -25,7 +25,7 @@ export const getStaticProps = async () => {
   };
 };
 
-export default function BlogHome({ posts }) {
+const BlogHome = ({ posts }) => {
   return (
     <Layout>
       <Head>
@@ -59,3 +59,5 @@ export default function BlogHome({ posts }) {
     </Layout>
   );
 }
+
+export default BlogHome
