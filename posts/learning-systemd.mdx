@@ -30,7 +30,6 @@ As I occasionally write services for daemon processes, every time when I need I 
 
 [systemd by examples]: https://systemd-by-example.com/
 
-
 ### code-server
 
 This file come from the builtin [code-server@.service], a good example for service to start on behalf of a particular user.
@@ -49,5 +48,12 @@ User=%i
 [Install]
 WantedBy=default.target
 ```
+
+## References
+
+- [systemd by examples]
+- [systemd(debian)](https://wiki.debian.org/systemd)
+- [systemctl(debian)](https://manpages.debian.org/bullseye-backports/systemd/systemctl.1.en.html)
+- [systemd(rhel)](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/system_administrators_guide/chap-managing_services_with_systemd)
 
 [code-server@.service]: https://github.com/coder/code-server/blob/main/ci/build/code-server@.service
