@@ -1,12 +1,12 @@
-import fs from "fs"
-import path from "path"
-import matter from "gray-matter"
-import Head from "next/head"
-import { Card, Text, Link } from "@nextui-org/react"
-import { Layout } from "../../components/MainLayout"
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
+import Head from "next/head";
+import { Card, Text, Link } from "@nextui-org/react";
+import { Layout } from "../../components/MainLayout";
 
 export const getStaticProps = async () => {
-  const files = fs.readdirSync(path.join("posts"))
+  const files = fs.readdirSync(path.join("posts"));
   const posts = files.map((filename) => {
     const markdownWithMeta = fs.readFileSync(
       path.join("posts", filename),
@@ -26,13 +26,16 @@ export const getStaticProps = async () => {
 };
 
 const BlogHome = ({ posts }) => {
+  const sortedPosts = posts.sort(
+    (first, second) => first.frontMatter.created - second.frontMatter.created
+  )
   return (
     <Layout>
       <Head>
         <title>Blog | ZHANGT.AI(张泰)</title>
       </Head>
       <div className="mt-5">
-        {posts.map((post, index) => (
+        {sortedPosts.map((post, index) => (
           <Link
             href={"/blog/" + post.slug}
             key={index}
@@ -58,6 +61,6 @@ const BlogHome = ({ posts }) => {
       </div>
     </Layout>
   );
-}
+};
 
-export default BlogHome
+export default BlogHome;

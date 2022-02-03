@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { Text, Link, Row, Container } from "@nextui-org/react";
+import { Text, Link, Row, Col, Container } from "@nextui-org/react";
 import { Layout } from "../components/MainLayout";
 import Mermaid from "../components/Mermaid";
 
@@ -27,7 +27,7 @@ const AboutSite: NextPage = () => {
             />
           </Row>
           <Row>
-            <p>
+            <Col>
               <Text>
                 This website is build with Next.js and NextUI. I started it from
                 30-Jan-2022, after exploring{" "}
@@ -107,7 +107,7 @@ const AboutSite: NextPage = () => {
                   </li>
                 </ul>
               </Text>
-            </p>
+            </Col>
           </Row>
         </Container>
       </Layout>

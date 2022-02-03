@@ -1,0 +1,83 @@
+---
+title: Cloudflared on DSM as homelab NAT
+created: '2022-02-03'
+updated: '2022-02-03'
+description: Cloudflared on DSM as homelab NAT
+tags: ["homelab", "network"]
+---
+
+> Cloudflare Tunnel is tunneling software that lets you quickly secure and encrypt application traffic to any type of infrastructure, so you can hide your web server IP addresses, block direct attacks, and get back to delivering great applications.
+
+I use it as a NAT service for me to remotely access my homelab services, especially there is no public assigned to a home user from my ISP. It's very quick to setup and reliable, but since it's a global service, so it's very slow to use in China, but that's seems the only option, because there are no way a company can provide such service in China, by the law.
+
+I have originally setup this service on a dev VM machine, it's working ok as long as the host and VM running fine, but when realized I need to remotely shutdown and start the host(Dell R720 with iDRAC management interface) then I can't access the proxy when the host is down. So I have switched the service to another always on host, a Synology DS216II NAS server. This machine has been running about 5 years no issues and when restart from power outrage of my apartment it will restart with all docker services. Here is my configurations.
+
+1. Open Docker app on DSM web console
+1. Search image `cloudflare/cloudflared` and download the latest tag
+1. Create a container with it and in Advanced settings:
+  - Enable auto-restart
+  - Volume Mapping, you need to prepare `config.yaml`, `cert.pem` and `<token>.json`, manual install it once you will know how to generate those files. I have saved those files in `docker/cloudflared` folder in NAS
+    - docker/cloudflared/cert.pem:/etc/ssl/certs/ca-certificates.crt
+    - docker/cloudflared:/etc/cloudflared
+  - Network: **Use the same network as Docker Host**
+  - Environment:
+    - Command: `tunnel --config /etc/cloudflared/config.yaml run`
+
+This is my configuration exported:
+
+```json
+{
+   "cap_add" : null,
+   "cap_drop" : null,
+   "cmd" : "tunnel --config /etc/cloudflared/config.yaml run",
+   "cpu_priority" : 50,
+   "devices" : null,
+   "enable_publish_all_ports" : false,
+   "enable_restart_policy" : true,
+   "enabled" : true,
+   "entrypoint_default" : "cloudflared --no-autoupdate",
+   "env_variables" : [
+      {
+         "key" : "PATH",
+         "value" : "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      {
+         "key" : "SSL_CERT_FILE",
+         "value" : "/etc/ssl/certs/ca-certificates.crt"
+      }
+   ],
+   "exporting" : false,
+   "id" : "7d0a00d6a45665c773f95e25e81ccb9e763e945f3582584784ed2c015dc4873a",
+   "image" : "cloudflare/cloudflared:2022.1.3",
+   "is_ddsm" : false,
+   "is_package" : false,
+   "links" : [],
+   "memory_limit" : 0,
+   "name" : "cloudflare-cloudflared2",
+   "network" : [
+      {
+         "driver" : "host",
+         "name" : "host"
+      }
+   ],
+   "network_mode" : "host",
+   "port_bindings" : [],
+   "privileged" : false,
+   "shortcut" : {
+      "enable_shortcut" : false
+   },
+   "use_host_network" : true,
+   "volume_bindings" : [
+      {
+         "host_volume_file" : "/docker/cloudflared/cert.pem",
+         "mount_point" : "/etc/ssl/certs/ca-certificates.crt",
+         "type" : "ro"
+      },
+      {
+         "host_volume_file" : "/docker/cloudflared",
+         "mount_point" : "/etc/cloudflared",
+         "type" : "ro"
+      }
+   ]
+}
+```
