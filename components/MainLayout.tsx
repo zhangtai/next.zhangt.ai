@@ -17,29 +17,6 @@ const Layout: React.FC = ({ children }) => {
           </NextLink>
         </h2>
       </Row>
-      {/*
-      <Row>
-        <Grid.Container gap={2}>
-          <Grid>
-            <Link color="primary" href="/">
-              <Card clickable css={{ w: "260px" }}>
-                <Text h4>Home</Text>
-              </Card>
-            </Link>
-          </Grid>
-          <Grid>
-            <Link css={{ color: "white" }} href="/blog">
-              <Card clickable css={{ w: "260px" }} color="primary">
-                <Text h4 color="white">
-                  Blog
-                </Text>
-              </Card>
-            </Link>
-          </Grid>
-        </Grid.Container>
-      </Row>
-*/}
-
       <Row>
         <Grid.Container gap={2} justify="center">
           <Grid xs={12} lg={4}>
