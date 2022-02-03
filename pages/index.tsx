@@ -11,7 +11,7 @@ const Home: NextPage = () => {
       </Head>
       <Layout>
         <Text>
-          Hi there, this is Tai Zhang(张泰).
+          Hi there, this is Zhang Tai(张泰, pronounce like /dʒʌŋ taɪ/).
         </Text>
       </Layout>
     </>
