@@ -18,17 +18,41 @@ As I occasionally write services for daemon processes, every time when I need I 
 
 ### v2ray
 
+Copied from archlinux wiki, [V2Ray service]
+
 ```ini
-# TBC
+[Unit]
+Description=V2Ray Service
+After=network.target nss-lookup.target
+
+[Service]
+User=nobody
+AmbientCapabilities=CAP_NET_ADMIN CAP_NET_BIND_SERVICE
+CapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_BIND_SERVICE
+ExecStart=/usr/bin/v2ray -confdir /etc/v2ray/
+
+[Install]
+WantedBy=multi-user.target
 ```
 
 ### iptables save and restore
 
-```ini
-# TBC
-```
+Copied from [iptables-restore.service] of awslabs/amazon-eks-ami
 
-[systemd by examples]: https://systemd-by-example.com/
+```ini
+[Unit]
+Description=Restore iptables
+# iptables-restore must start after docker because docker will
+# reconfigure iptables to drop forwarded packets.
+After=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash -c "/sbin/iptables-restore < /etc/sysconfig/iptables"
+
+[Install]
+WantedBy=multi-user.target
+```
 
 ### code-server
 
@@ -56,4 +80,7 @@ WantedBy=default.target
 - [systemctl(debian)](https://manpages.debian.org/bullseye-backports/systemd/systemctl.1.en.html)
 - [systemd(rhel)](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/system_administrators_guide/chap-managing_services_with_systemd)
 
+[systemd by examples]: https://systemd-by-example.com/
+[V2Ray service]: https://wiki.archlinux.org/title/V2Ray
+[iptables-restore.service]: https://github.com/awslabs/amazon-eks-ami/blob/master/files/iptables-restore.service
 [code-server@.service]: https://github.com/coder/code-server/blob/main/ci/build/code-server@.service
