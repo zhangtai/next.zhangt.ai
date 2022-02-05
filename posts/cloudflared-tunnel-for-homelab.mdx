@@ -1,10 +1,12 @@
 ---
-title: Cloudflared on DSM as homelab NAT
+title: NAT services for my homelab
 created: '2022-02-03'
 updated: '2022-02-03'
-description: Cloudflared on DSM as homelab NAT
+description: NAT services for my homelab
 tags: ["homelab", "network"]
 ---
+
+## Cloudflare Tunnel
 
 > Cloudflare Tunnel is tunneling software that lets you quickly secure and encrypt application traffic to any type of infrastructure, so you can hide your web server IP addresses, block direct attacks, and get back to delivering great applications.
 
@@ -81,3 +83,9 @@ This is my configuration exported:
    ]
 }
 ```
+
+## frp
+
+https://github.com/fatedier/frp
+
+It solves the slow issue for Cloudflare Tunnel, but still can't use custom domain.
