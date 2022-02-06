@@ -73,12 +73,30 @@ User=%i
 WantedBy=default.target
 ```
 
+## systemctl cheatsheet
+
+```shell
+man systemd.directives
+man systemd.unit
+
+systemctl --state=help
+systemctl list-units -t service
+systemctl list-unit-files
+systemctl list-unit-files -t
+systemctl is-enabled docker
+systemctl is-active docker
+systemctl show
+systemctl show --property=Virtualization
+```
+
 ## References
 
 - [systemd by examples]
 - [systemd(debian)](https://wiki.debian.org/systemd)
 - [systemctl(debian)](https://manpages.debian.org/bullseye-backports/systemd/systemctl.1.en.html)
 - [systemd(rhel)](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/system_administrators_guide/chap-managing_services_with_systemd)
+- [Use systemd timers instead of cronjobs](https://opensource.com/article/20/7/systemd-timers)
+- [Why I Prefer systemd Timers Over Cron](https://trstringer.com/systemd-timer-vs-cronjob/)
 
 [systemd by examples]: https://systemd-by-example.com/
 [V2Ray service]: https://wiki.archlinux.org/title/V2Ray
