@@ -37,21 +37,28 @@ WantedBy=multi-user.target
 
 ### iptables save and restore
 
-Copied from [iptables-restore.service] of awslabs/amazon-eks-ami
+Copied from [iptables-restore.service] of awslabs/amazon-eks-ami, modified with adding `ExecStartPre`, my iptables file have some custom value need to be replaced for the current running machine, i.e. IP address.
 
 ```ini
 [Unit]
 Description=Restore iptables
 # iptables-restore must start after docker because docker will
 # reconfigure iptables to drop forwarded packets.
-After=docker.service
+After=docker.service network.target nss-lookup.target
 
 [Service]
 Type=oneshot
+ExecStartPre=/bin/bash /etc/sysconfig/replace_ip_in_iptables.sh
 ExecStart=/bin/bash -c "/sbin/iptables-restore < /etc/sysconfig/iptables"
+ExecStartPost=/usr/bin/mount /data
 
 [Install]
 WantedBy=multi-user.target
+```
+
+```shell
+#!/bin/bash
+/usr/bin/sed -i "s/MY_IP/$(hostname -I|cut -d' ' -f2)/g" /etc/sysconfig/iptables
 ```
 
 ### code-server
