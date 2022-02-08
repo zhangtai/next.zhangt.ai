@@ -8,6 +8,9 @@ tags: ["linux"]
 
 As I occasionally write services for daemon processes, every time when I need I just google for it, this works most of the time. But sometimes it repeated and I haven't keep a note of those one off(I wrongly thought) services. Recently read the blog [systemd by examples] which encourage me to write down my services and share here, most usefully hope I can copy them once needed, from here.
 
+- Check status or info of a unit don't need sudo
+- A name default indicate to service, e.g. `systemctl status docker` for docker, `systemctl status docker.socket` for docker socket
+
 ## Examples
 
 ### Jenkins agent for SharedCloud
