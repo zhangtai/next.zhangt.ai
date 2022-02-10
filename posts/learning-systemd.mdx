@@ -1,7 +1,7 @@
 ---
 title: Learning systemd
 created: "2022-01-31"
-updated: "2022-02-06"
+updated: "2022-02-10"
 description: Learning systemd by example
 tags: ["linux"]
 ---
@@ -10,6 +10,10 @@ As I occasionally write services for daemon processes, every time when I need I 
 
 - Check status or info of a unit don't need sudo
 - A name default indicate to service, e.g. `systemctl status docker` for docker, `systemctl status docker.socket` for docker socket
+
+## Notes from the book
+
+> In systemd, a target is a unit that groups together other systemd units for a particular purpose. The units that a target can group together include services, paths, mount points, sockets, and even other targets.
 
 ## Examples
 
@@ -97,6 +101,17 @@ systemctl is-enabled docker
 systemctl is-active docker
 systemctl show
 systemctl show --property=Virtualization
+
+systemctl list-dependencies
+systemctl list-dependencies --after network.target
+systemd-analyze dot graphical.target
+
+systemctl get-default
+ls -ltr /lib/systemd/system/default.target
+
+# This will shut down the graphics server and bring you back to a text-mode login prompt
+sudo systemctl isolate multi-user
+sudo systemctl isolate graphical
 ```
 
 ## References
