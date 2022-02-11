@@ -43,7 +43,8 @@ export const getStaticProps = async ({ params: { slug } }) => {
   };
 };
 
-const PostPage = ({ frontMatter: { title }, mdxSource }) => {
+const PostPage = ({ frontMatter: { title, created, updated }, mdxSource }) => {
+  const timeDisplay = created === updated ? created : `${created}, ${updated}(Updated)`
   return (
     <Layout>
       <Head>
@@ -53,6 +54,7 @@ const PostPage = ({ frontMatter: { title }, mdxSource }) => {
         <Text h2 color="$red400">
           {title}
         </Text>
+        <Text>{timeDisplay}</Text>
         <MDXRemote {...mdxSource} components={{ Mermaid }} />
       </div>
     </Layout>
