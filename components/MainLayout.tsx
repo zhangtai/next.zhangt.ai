@@ -5,7 +5,7 @@ import styles from "../styles/Home.module.css";
 
 const Layout: React.FC = ({ children }) => {
   return (
-    <Container>
+    <Container sm>
       <Row>
         <h2 className={styles.footer}>
           <NextLink href="/" passHref>
@@ -18,9 +18,9 @@ const Layout: React.FC = ({ children }) => {
         </h2>
       </Row>
       <Row>
-          <Col>
-            {children}
-          </Col>
+        <Col>
+          {children}
+        </Col>
       </Row>
       <Row>
         <footer className={styles.footer}>ZHANGT.AI@2022</footer>
