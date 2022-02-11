@@ -87,6 +87,16 @@ User=%i
 WantedBy=default.target
 ```
 
+## timer
+
+> Not having the [Install] section makes this a static type of service that you can't enable. 
+
+
+```shell
+systemctl list-unit-files -t timer
+systemctl list-timers
+```
+
 ## systemctl cheatsheet
 
 ```shell
