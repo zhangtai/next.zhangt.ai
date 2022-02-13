@@ -1,7 +1,7 @@
 ---
 title: Learning systemd
 created: "2022-01-31"
-updated: "2022-02-10"
+updated: "2022-02-13"
 description: Learning systemd by example
 tags: ["linux"]
 ---
@@ -89,12 +89,26 @@ WantedBy=default.target
 
 ## timer
 
-> Not having the [Install] section makes this a static type of service that you can't enable. 
-
+> Not having the [Install] section makes this a static type of service that you can't enable.
 
 ```shell
 systemctl list-unit-files -t timer
 systemctl list-timers
+```
+
+## bootup
+
+> D-Bus, which is short for Desktop Bus, is a messaging protocol that allows applications to communicate with each other. It also allows the system to launch daemons and applications on demand, whenever they're needed.
+
+```shell
+man bootup
+systemctl list-dependencies local-fs.target
+strings /lib/systemd/systemd | grep -A 100 'local-fs.target'
+systemd-analyze # same as systemd-analyze time
+systemd-analyze blame # See services run time
+systemd-analyze critical-chain # target to start during bootup
+
+ls -ltr /run/systemd/generator/ # systemd dynamic generate mounts from /etc/fstab to here
 ```
 
 ## systemctl cheatsheet
