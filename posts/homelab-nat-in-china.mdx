@@ -1,7 +1,7 @@
 ---
 title: Expose Homelab services through NAT, in China
 created: '2022-02-06'
-updated: '2022-02-06'
+updated: '2022-02-13'
 description: NAT services for my homelab
 tags: ["homelab", "network"]
 ---
@@ -92,7 +92,17 @@ WantedBy=multi-user.target
 
 https://github.com/fatedier/frp
 
-It solves the slow issue for Cloudflare Tunnel, can't use custom domain.
+It solves the slow issue for Cloudflare Tunnel, can't use custom domain if the server is inside China.
+
+`/etc/frp/frps.ini`
+
+```ini
+[common]
+bind_port = 12340
+vhost_http_port = 10443
+```
+
+`docker run --network host -d -v /etc/frp/frps.ini:/etc/frp/frps.ini --name frps snowdreamtech/frps`
 
 [teleport linux installation]: https://goteleport.com/docs/getting-started/linux-server/
 [daemon setup guide]: https://goteleport.com/docs/setup/admin/daemon/
