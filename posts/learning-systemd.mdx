@@ -1,7 +1,7 @@
 ---
 title: Learning systemd
 created: "2022-01-31"
-updated: "2022-02-13"
+updated: "2022-02-17"
 description: Learning systemd by example
 tags: ["linux"]
 ---
@@ -136,6 +136,39 @@ ls -ltr /lib/systemd/system/default.target
 # This will shut down the graphics server and bring you back to a text-mode login prompt
 sudo systemctl isolate multi-user
 sudo systemctl isolate graphical
+
+# cgroups
+systemd-cgls
+systemctl status user.slice
+ls -l /sys/fs/cgroup
+
+sudo apt install cgroup-tools
+sudo yum install libcgroup-tools
+
+lssubsys # view active resource controllers
+
+
+# Limit for user
+sudo systemctl set-property user-1001.slice CPUQuota=200%
+
+# Created in /etc/systemd/system.control
+
+# Only ff this is first-time for user-1001, need to reload.
+sudo systemctl daemon-reload
+
+cat /sys/fs/cgroup/cpu/user.slice/user-1001.slice/cpu.cfs_quota_us
+# 200000
+
+# Limit for service
+## with systemctl cmd
+sudo systemctl set-property cputest.service CPUQuota=90%
+
+## with service file
+
+#      [Service]
+#      ExecStart=/usr/bin/stress-ng -c 4
+#      CPUQuota=90%
+
 ```
 
 ## References
