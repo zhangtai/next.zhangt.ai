@@ -1,0 +1,33 @@
+---
+title: Creating bootable usb disk
+created: "2022-02-17"
+updated: "2022-02-17"
+description:
+tags: ["os"]
+---
+
+Occasionally I need to reinstall my desktop or servers, this page will help myself for referring if want to try any new OS.
+
+## Host: macOS
+
+### Create windows image
+
+```shell
+IMAGE_FILE="${HOME}/Downloads/iso/Win11_English_x64v1.iso"
+DISK_LABEL="WIN_INSTALL"
+
+diskutil list
+usb_disk=$(diskutil list|grep external|cut -d ' ' -f1)
+diskutil eraseDisk MS-DOS "${DISK_LABEL}" GPT "$usb_disk"
+
+hdiutil mount "$IMAGE_FILE"
+rsync -vha --exclude=sources/install.wim /Volumes/CCCOMA_X64FRE_EN-US_DV9/* "/Volumes/${DISK_LABEL}"
+
+brew install wimlib
+mkdir -p "/Volumes/${DISK_LABEL}/sources"
+wimlib-imagex split /Volumes/CCCOMA_X64FRE_EN-US_DV9/sources/install.wim "/Volumes/${DISK_LABEL}/sources/install.swm" 3000
+```
+
+### Create linux image
+
+Install with https://github.com/balena-io/etcher
