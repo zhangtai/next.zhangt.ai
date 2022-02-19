@@ -1,0 +1,28 @@
+---
+title: Proxmox
+created: "2022-02-18"
+updated: "2022-02-18"
+description:
+tags: ["kubernetes"]
+---
+
+## system settings
+
+### certificate
+
+Create TLS key and privkey, to replace each and restart with `pveproxy restart`,
+
+- /etc/pve/nodes/pve/pve-ssl.pem
+- /etc/pve/nodes/pve/pve-ssl.key
+
+## vm
+
+I use [Ubuntu Cloud Image] for VM, which is small, e.g the latest ubuntu 20.04.3 server size as now is 1.26GB, however the cloud image is only 560MB, and it supports cloudinit which is very useful as a template image. I created a repo [proxmox-ansible] to create template VM base on this image on proxmox, I also use this repo to maintain my proxmox server.
+
+## lxc
+
+Most of the time you don't need a VM to run an application or database, and actually it's much easier for CICD works with lxc, it's lightweight and fast.
+
+
+[Ubuntu Cloud Image]: https://cloud-images.ubuntu.com/
+[proxmox-ansible]: https://github.com/zhangtai/proxmox-ansible
