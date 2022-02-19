@@ -15,14 +15,34 @@ Create TLS key and privkey, to replace each and restart with `pveproxy restart`,
 - /etc/pve/nodes/pve/pve-ssl.pem
 - /etc/pve/nodes/pve/pve-ssl.key
 
-## vm
+## VM
 
 I use [Ubuntu Cloud Image] for VM, which is small, e.g the latest ubuntu 20.04.3 server size as now is 1.26GB, however the cloud image is only 560MB, and it supports cloudinit which is very useful as a template image. I created a repo [proxmox-ansible] to create template VM base on this image on proxmox, I also use this repo to maintain my proxmox server.
 
-## lxc
+## LXC
 
-Most of the time you don't need a VM to run an application or database, and actually it's much easier for CICD works with lxc, it's lightweight and fast.
+Most of the time you don't need a VM to run an application or database, and actually it's much easier for CICD works with LXC, it's lightweight and fast. But the default images provided by Proxmox is mostly outdated and not update regularly, there are alternatives if the defaults not satisfies you.
+
+### Turnkey
+
+There are some many ready to use template on [Turnkey], but personally I never use those, because usually when I want to use or test tools I build on my own.
+
+### Official LXC and LXC images
+
+LXC official built lots of popular linux distros, and update very frequently, especially if you use Ubuntu, it's the same company supports both. But, since I haven't installed lxc myself, and can download the template by the [official script], so I haven't use those images(directly) as well(Actually I used it, in the next section). Good news is that by analyzing the script, you can easily figure out the [index file] for downloading the images. e.g. latest ubuntu 20.04 image can be found in this url: https://uk.lxd.images.canonical.com/images/ubuntu/bionic/amd64/default/
+
+### distrobuilder
+
+> `distrobuilder` is an image building tool for LXC and LXD.
+> It's used to build all our official images available on our image server.
+
+The [distrobuilder] is created and used by LXC to build container images. With this tool you can build your own image without depends on anyone! The [GitHub page] has very detailed guide for how to use so I won't duplicate it here.
 
 
 [Ubuntu Cloud Image]: https://cloud-images.ubuntu.com/
 [proxmox-ansible]: https://github.com/zhangtai/proxmox-ansible
+[Turnkey]: https://www.turnkeylinux.org/
+[official script]: https://github.com/lxc/lxc/blob/master/templates/lxc-download.in
+[index file]: https://uk.lxd.images.canonical.com/meta/1.0/index-user
+[distrobuilder]: https://linuxcontainers.org/distrobuilder/
+[GitHub page]: https://github.com/lxc/distrobuilder
