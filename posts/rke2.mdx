@@ -1,7 +1,7 @@
 ---
 title: Using RKE2
 created: "2022-01-30"
-updated: "2022-02-01"
+updated: "2022-02-19"
 tags: ["kubernetes"]
 ---
 
@@ -10,7 +10,6 @@ I used to setup my homelab kubernetes cluster with [Rancher] and [rke], both are
 It's easy to setup just follow the [RKE2 official installation guide]. Here is summary of my installtion manually, I opened a tmux session with 4 panes, one for server, 3 for agents. Each has 4 cores, 8GB RAM 160GB storage, they are VMs running on a host of ESXi instance.
 
 ## Server
-
 
 ```shell
 # Add proxy only if you have such dependency
@@ -42,10 +41,6 @@ EOF'
 sudo systemctl start rke2-agent.service
 ```
 
-[rancher]: https://rancher.com
-[rke]: https://rancher.com/rke
-[RKE2 official installation guide]: https://docs.rke2.io/install/quickstart/
-
 ## StorageClass: Longhorn
 
 - https://longhorn.io/docs/1.2.3/deploy/install/
@@ -61,3 +56,18 @@ spec:
         paths:
           # ...
 ```
+
+Installation
+
+```shell
+USER=<USERNAME_HERE>
+PASSWORD=<PASSWORD_HERE>
+echo "${USER}:$(openssl passwd -stdin -apr1 <<< ${PASSWORD})" >> auth
+
+kubectl -n longhorn-system apply -f longhorn-ingress.yml
+```
+
+
+[rancher]: https://rancher.com
+[rke]: https://rancher.com/rke
+[RKE2 official installation guide]: https://docs.rke2.io/install/quickstart/
