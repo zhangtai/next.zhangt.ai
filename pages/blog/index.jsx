@@ -27,7 +27,7 @@ export const getStaticProps = async () => {
 
 const BlogHome = ({ posts }) => {
   const sortedPosts = posts.sort(
-    (first, second) => first.frontMatter.created - second.frontMatter.created
+    (first, second) => first.frontMatter.created < second.frontMatter.created
   )
   return (
     <Layout>
@@ -53,7 +53,7 @@ const BlogHome = ({ posts }) => {
                 {post.frontMatter.title}
               </Text>
               <Text css={{ fontWeight: "$bold", color: "$gray500" }} span>
-                {post.frontMatter.description}: {post.frontMatter.created}
+                {post.frontMatter.created}
               </Text>
             </Card>
           </Link>
