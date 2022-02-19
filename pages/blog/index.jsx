@@ -44,7 +44,7 @@ const BlogHome = ({ posts }) => {
               mb: "1rem",
             }}
           >
-            <Card clickable w="100%">
+            <div clickable w="100%">
               <Text
                 css={{ fontWeight: "$bold", color: "$red400" }}
                 transform="capitalize"
@@ -55,7 +55,7 @@ const BlogHome = ({ posts }) => {
               <Text css={{ fontWeight: "$bold", color: "$gray500" }} span>
                 {post.frontMatter.created}
               </Text>
-            </Card>
+            </div>
           </Link>
         ))}
       </div>
