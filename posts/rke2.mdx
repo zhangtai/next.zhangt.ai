@@ -1,7 +1,7 @@
 ---
 title: Using RKE2
 created: "2022-01-30"
-updated: "2022-02-19"
+updated: "2022-02-20"
 tags: ["kubernetes"]
 ---
 
@@ -19,6 +19,8 @@ sudo systemctl enable rke2-server.service
 sudo systemctl start rke2-server.service
 journalctl -u rke2-server -f
 sudo cat /var/lib/rancher/rke2/server/node-token
+
+# save /etc/rancher/rke2/rke2.yaml as token to communicate with cluster api
 ```
 
 ## Agent
@@ -44,9 +46,18 @@ sudo systemctl start rke2-agent.service
 ## StorageClass: Longhorn
 
 - https://longhorn.io/docs/1.2.3/deploy/install/
-- https://longhorn.io/docs/1.2.3/deploy/accessing-the-ui/longhorn-ingress/
 
 Just install according to the official guide, add ingress hostname if you want to access the dashboard by domain.
+
+```shell
+helm repo add longhorn https://charts.longhorn.io
+helm repo update
+helm install longhorn longhorn/longhorn \
+  --namespace longhorn-system \
+  --create-namespace
+```
+
+- https://longhorn.io/docs/1.2.3/deploy/accessing-the-ui/longhorn-ingress/
 
 ```yaml
 spec:
@@ -67,6 +78,17 @@ echo "${USER}:$(openssl passwd -stdin -apr1 <<< ${PASSWORD})" >> auth
 kubectl -n longhorn-system apply -f longhorn-ingress.yml
 ```
 
+## Install Jenkins
+
+```shell
+helm install jenkins jenkins/jenkins \
+  --set persistence.storageClassName="longhorn" \
+  --set persistence.size="16Gi" \
+  --set controller.ingress.enabled=true \
+  --set controller.ingress.hostName="jenkins.lan" \
+  --namespace jenkins \
+  --create-namespace
+```
 
 [rancher]: https://rancher.com
 [rke]: https://rancher.com/rke
