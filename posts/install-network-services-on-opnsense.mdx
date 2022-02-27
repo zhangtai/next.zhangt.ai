@@ -12,6 +12,8 @@ tags: ["homelab", "network"]
 
 ## v2ray
 
+> OpnSense official also provided v2ray package, but I can't get it work though...
+
 The final service file(`/usr/local/etc/rc.d/v2ray`) is here, it is enabled by `rcvar=v2ray_enable`(will auto start when booting).
 
 ```shell
@@ -32,10 +34,10 @@ rcvar=v2ray_enable
 
 load_rc_config $name
 
-procname="/usr/share/v2ray-freebsd-64/${name}"
+procname="/usr/local/etc/${name}/${name}"
 pidfile="/var/run/${name}.pid"
 command=/usr/sbin/daemon
-command_args="-p ${pidfile} ${procname} -c /usr/share/v2ray-freebsd-64/config.json"
+command_args="-p ${pidfile} ${procname} -c /usr/local/etc/${name}/config.json"
 
 run_rc_command "$1"
 ```
