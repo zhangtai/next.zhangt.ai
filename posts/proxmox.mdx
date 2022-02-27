@@ -7,6 +7,11 @@ tags: ["vm", "iac", "container"]
 
 ## system settings
 
+### Disable swap
+
+- Comment swap in `/etc/fstab`
+- Add `vm.swappiness = 0` in `/etc/sysctl.conf`
+
 ### Issue on server hang or reboot
 
 > pve kernel: mce: [Hardware Error]: Machine check events logged
