@@ -1,0 +1,38 @@
+---
+title: Expose Homelab services through NAT, in China
+created: '2022-02-27'
+updated: '2022-02-27'
+tags: ["homelab", "network"]
+---
+
+[frp] is my choice of homelab NAT service, adn [v2ray] is for egress proxy. Both are very critical network services to me and I want them to run all the time, together with my router OpnSense. But OpnSense is based on FreeBSD which is not using systemd as service manager, which is new to me so I spent some time and managed to setup v2ray service, frp will be the next. This post is about how to set them up.
+
+## v2ray
+
+The final service file(`/usr/local/etc/rc.d/v2ray`) is here, it is enabled by `rcvar=v2ray_enable`(will auto start when booting).
+
+```shell
+#!/bin/sh
+#
+# $FreeBSD$
+#
+
+# PROVIDE: v2ray
+# REQUIRE: LOGIN FILESYSTEMS
+# BEFORE: securelevel
+# KEYWORD: shutdown
+
+. /etc/rc.subr
+
+name=v2ray
+rcvar=v2ray_enable
+
+load_rc_config $name
+
+procname="/usr/share/v2ray-freebsd-64/${name}"
+pidfile="/var/run/${name}.pid"
+command=/usr/sbin/daemon
+command_args="-p ${pidfile} ${procname} -c /usr/share/v2ray-freebsd-64/config.json"
+
+run_rc_command "$1"
+```
