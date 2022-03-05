@@ -12,7 +12,7 @@ const AboutSite: NextPage = () => {
       </Head>
       <Layout>
         <Container>
-          <Row>
+          <Row justify="center" align="center">
             <Mermaid
               chart={`
     graph RL
@@ -48,6 +48,9 @@ const AboutSite: NextPage = () => {
                 When building this website, I started from scratch, learnt and
                 borrowed a lot from the article from internet. Here are some
                 references I can remember.
+              </Text>
+              <Text>
+                Copied the style from https://truecolors.firefox.com/
               </Text>
               <ul>
                 <li>
