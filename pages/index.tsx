@@ -1,17 +1,12 @@
+/* eslint-disable @next/next/no-img-element */
 import type { NextPage } from "next";
 import Head from "next/head";
 import NextLink from "next/link";
-import Image from "next/image";
 import { Container, Row, Col, Text, Link } from "@nextui-org/react";
 import Mermaid from "../components/Mermaid";
 
 import { Layout } from "../components/MainLayout";
 import FancyLink from "../components/FancyLink";
-
-import imageRainbow from "../public/images/rainbow.svg";
-import imageGreeting from "../public/images/greeting.svg";
-import imageHomelab from "../public/images/homelab.svg";
-import imageBlog from "../public/images/blog.svg";
 
 const Home: NextPage = () => {
   return (
@@ -27,8 +22,8 @@ const Home: NextPage = () => {
                 transform: "rotate(-15deg)",
               }}
             >
-              <Image alt="greeting" src={imageGreeting} />
-              <Image alt="rainbow" src={imageRainbow} />
+              <img alt="greeting" src="/images/greeting.svg" />
+              <img alt="rainbow" src="/images/rainbow.svg" />
             </Col>
             <Col
               css={{
@@ -37,14 +32,7 @@ const Home: NextPage = () => {
             >
               <NextLink href="/blog">
                 <Link>
-                  <Text
-                    css={{
-                      textGradient: "45deg, $blue500 -20%, $pink500 50%",
-                    }}
-                    weight="bold"
-                  >
-                    <Image alt="blog" src={imageBlog} />
-                  </Text>
+                    <img alt="blog" src="/images/blog.svg" />
                 </Link>
               </NextLink>
             </Col>
