@@ -23,6 +23,33 @@ sudo cat /var/lib/rancher/rke2/server/node-token
 # save /etc/rancher/rke2/rke2.yaml as token to communicate with cluster api
 ```
 
+### Remove connect via frp
+
+`/etc/rancher/rke2/config.yaml`
+
+```yaml
+tls-san:
+  - "<frp-server-id>"
+```
+
+`frpc.ini`
+
+```ini
+[kubernetes-api]
+type = tcp
+local_ip = 192.168.1.3
+local_port = 6443
+remote_port = 6443
+```
+
+`rke2.yaml`
+
+```yaml
+# ...
+    server: https://120.24.177.213:16443
+# ...
+```
+
 ## Agent
 
 ```shell
