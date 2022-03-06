@@ -40,6 +40,17 @@ const Home: NextPage = () => {
               </NextLink>
             </Grid>
           </Grid.Container>
+          <Grid.Container gap={2} justify="center">
+          <Grid
+              xs={12}
+              lg={6}
+              css={{
+                transform: "rotate(-15deg)",
+              }}
+            >
+              <img alt="locations" src="/images/locations.svg" />
+            </Grid>
+          </Grid.Container>
           <Row justify="center" align="center">
             <Mermaid
               chart={`
