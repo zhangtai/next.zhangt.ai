@@ -23,7 +23,9 @@ sudo cat /var/lib/rancher/rke2/server/node-token
 # save /etc/rancher/rke2/rke2.yaml as token to communicate with cluster api
 ```
 
-### Remove connect via frp
+### Remote connect via frp
+
+The default connection string is generated for LAN connection(of course), but when connecting from remote from home, you need to expose the API server https port, for example I am using frp.
 
 `/etc/rancher/rke2/config.yaml`
 
