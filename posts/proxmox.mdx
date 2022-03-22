@@ -7,38 +7,9 @@ tags: ["vm", "iac", "container"]
 
 ## system settings
 
-### Disable swap
+### Update repositories
 
-- Comment swap in `/etc/fstab`
-- Add `vm.swappiness = 0` in `/etc/sysctl.conf`
-
-### Issue on server hang or reboot
-
-> pve kernel: mce: [Hardware Error]: Machine check events logged
-
-https://forum.proxmox.com/threads/random-crashes-reboots-mit-proxmox-ve-6-1-auf-ex62-nvme-hetzner.63597/page-3
-
-```shell
-apt install linux-cpupower
-turbostat -S --debug sleep 10
-# usec    Time_Of_Day_Seconds     APIC    X2APIC  Avg_MHz Busy%   Bzy_MHz TSC_MHz IRQ     SMI     POLL    C1      C1E     C3      C6      POLL%   C1%     C1E%    C3%     C6%     CPU%c1 CPU%c3   CPU%c6  CPU%c7  CoreTmp PkgTmp  Pkg%pc2 Pkg%pc3 PkgWatt RAMWatt PKG_%   RAM_%
-#  3139   1645841116.619678       -       -       115     4.54    2529    2394    115231  0       661     12542   53674   0       80156   0.00    0.60    4.79    0.00    89.99   28.45  0.00     67.00   0.00    36      38      1.55    0.00    25.17   1.18    0.00    0.00
-
-# Update /etc/default/grub
-# #GRUB_CMDLINE_LINUX_DEFAULT="quiet"
-# GRUB_CMDLINE_LINUX_DEFAULT="consoleblank=0 intel_idle.max_cstate=1"
-
-update-grub
-reboot
-
-turbostat -S --debug sleep 10
-# usec    Time_Of_Day_Seconds     APIC    X2APIC  Avg_MHz Busy%   Bzy_MHz TSC_MHz IRQ     SMI     POLL    C1      POLL%   C1%     CPU%c1  CPU%c3  CPU%c6  CPU%c7  CoreTmp PkgTmp  Pkg%pc2Pkg%pc3  PkgWatt RAMWatt PKG_%   RAM_%
-#  1824   1645841569.565763       -       -       210     7.81    2700    2395    153278  0       1304    206228  0.02    92.26   92.19   0.00    0.00    0.00    39      42      0.00   0.00     36.86   1.40    0.00    0.00
-```
-
-> pve kernel: L1TF CPU bug present and SMT on, data leak possible. See CVE-2018-3646 and https://www.kernel.org/doc/html/latest/admin-guide/hw-vuln/l1tf.html for details.
-
-TBC
+https://pve.proxmox.com/wiki/Package_Repositories#sysadmin_no_subscription_repo
 
 ### certificate
 
