@@ -1,7 +1,7 @@
 ---
 title: Using RKE2
 created: "2022-01-30"
-updated: "2022-02-20"
+updated: "2022-03-22"
 tags: ["kubernetes"]
 ---
 
@@ -63,6 +63,7 @@ remote_port = 6443
 ## Agent
 
 ```shell
+sudo apt update && sudo apt install -y nfs-common
 curl -sfL https://get.rke2.io | sudo https_proxy=http://192.168.3.1:8889 INSTALL_RKE2_TYPE="agent" sh -
 sudo systemctl enable rke2-agent.service
 sudo mkdir -p /etc/rancher/rke2/
@@ -79,6 +80,17 @@ token: <token from server node>
 EOF'
 
 sudo systemctl start rke2-agent.service
+```
+
+## StorageClass: NFS
+
+https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner
+
+```shell
+helm repo add nfs-subdir-external-provisioner https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
+helm install nfs-subdir-external-provisioner nfs-subdir-external-provisioner/nfs-subdir-external-provisioner \
+    --set nfs.server=192.168.3.2 \
+    --set nfs.path=/k8s-pv
 ```
 
 ## StorageClass: Longhorn
