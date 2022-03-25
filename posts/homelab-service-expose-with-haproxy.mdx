@@ -1,0 +1,36 @@
+---
+title: Expose Homelab services through HAPROXY with OPNSENSE
+created: '2022-03-25'
+updated: '2022-03-25'
+tags: ["homelab", "network"]
+---
+
+In this post I will show you how to expose the homelab services through HAPROXY as a reversed proxy, but keep in mind this is dangerous because anyone knows the domains you setup will be able to connect your homelab directly, and if you not securely setup your firewall they can be possibly hack you and your families devices.
+
+## Prerequisites
+
+- A domain, the provider supports wildcard domains(I use cloudflare)
+- Wildcard TLS cert and privkey
+- Public IP address provided by your ISP
+- OpnSense with os-ddclient and os-haproxy plugins installed
+
+## Setups
+
+### Dynamic DNS
+
+As a home internet service, ISP will only provide dynamic IP(At least in China), so you need to setup ddns service to update the IP address when changing.
+
+Go to `Services / Dynamic DNS / Settings` create one with inputs:
+
+- Service: `Cloudflare`
+- Username: `<email>`
+- Password: `<Cloudflare Global Token>`
+- zone: `<e.g. example.com>`
+- Hostnames: `<*.example.com>`
+- Check ip method: `Interface`
+- Force SSL: `true`
+- Interface to monitor: `WAN`
+
+### Port Forward
+
+You will need to select a primary port for all the services(e.g. 1234), this will be listen by a frontend service.
