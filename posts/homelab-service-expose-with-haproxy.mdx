@@ -5,6 +5,8 @@ updated: '2022-03-25'
 tags: ["homelab", "network"]
 ---
 
+import Mermaid from "../components/Mermaid";
+
 In this post I will show you how to expose the homelab services through HAPROXY as a reversed proxy, but keep in mind this is dangerous because anyone knows the domains you setup will be able to connect your homelab directly, and if you not securely setup your firewall they can be possibly hack you and your families devices.
 
 ## Prerequisites
@@ -31,6 +33,10 @@ Go to `Services / Dynamic DNS / Settings` create one with inputs:
 - Force SSL: `true`
 - Interface to monitor: `WAN`
 
+### Wildcard TLS certificate and Private key
+
+I use certbot to create an rotate my certs, after the certs created upload to the OpnSense system in: `System / Trust / Certificates`
+
 ### Port Forward
 
 You will need to select a primary port for all the services(e.g. 1234), this will be listen by a frontend service. For a simple homelab with not to much and complex services one public service is able to serve all the services. In this post I will create only one.
@@ -51,3 +57,61 @@ You will also need to set `Firewall / Settings / Advanced` on below field to ena
 
 - Reflection for port forwards: `true`
 - Automatic outbound NAT for Reflection: `true`
+
+### HAProxy
+
+The sequence for setup each service in HAProxy is this chart, each service has very detailed explanation in the configuration page.
+
+<Mermaid
+  chart={`
+    graph LR
+    rs1[Real Server 1] --> bp1[Backend Pools 1]
+    bp1 --> con1[Conditions 1]
+    con1 --> ru1[Rules 1]
+    rs2[Real Server 2] --> bp2[Backend Pools 2]
+    bp2 --> con2[Conditions 2]
+    con2 --> ru2[Rules 2]
+    rsn[Real Server n] --> bpn[Backend Pools n]
+    bpn --> conn[Conditions n]
+    conn --> run[Rules n]
+    ru1 --> ps[Public Services]
+    ru2 --> ps
+    run --> ps
+    `}
+/>
+
+I will show an example to expose code-server service with port `8080` on a local machine with ip `192.168.1.2`
+
+#### Real Server
+
+- Name or Prefix: `CODE-SERVER`
+- FQDN or IP: `192.168.1.2`
+- Port: `8080`
+
+#### Backend Pool
+
+- Name: `CODE-SERVER`
+- Servers: `CODE-SERVER`
+
+#### Condition
+
+- Name: `CODE-SERVER`
+- Condition type: `<Host starts with>` (Select depends on your real needs)
+- Host Prefix: `code-server.example.com`
+
+#### Rule
+
+- Name: `CODE-SERVER`
+- Select conditions: `CODE-SERVER`
+- Use backend pool: `CODE-SERVER`
+
+#### Public Service
+
+As said, you will only create one public service
+
+- Name: `<e.g. homelab>`
+- Listen Addresses: `0.0.0.0:<Your_Port>`
+- Default Backend Pool: `none`
+- Certificates: `<The one created earlier>`
+- Default certificate: `<Same as Certificates>`
+- Rules: `<Select in the dropdown>`
