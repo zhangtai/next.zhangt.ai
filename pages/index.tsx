@@ -33,41 +33,56 @@ const Home: NextPage = () => {
                 transform: "rotate(15deg)",
               }}
             >
+              <img alt="locations" src="/images/locations.svg" />
+
+            </Grid>
+          </Grid.Container>
+          <Grid.Container gap={2} justify="center">
+            <Grid
+              xs={12}
+              lg={6}
+            >
               <NextLink href="/blog">
                 <Link>
-                  <img alt="blog" src="/images/blog.svg" />
+                  <img
+                    alt="blog"
+                    src="/images/casual-life-3d-green-book-with-orange-ribbon.png"
+                  />
                 </Link>
               </NextLink>
             </Grid>
           </Grid.Container>
           <Grid.Container gap={2} justify="center">
-          <Grid
+            <Grid xs={12} lg={6}>
+              <img
+                alt="greeting"
+                src="/images/casual-life-3d-young-man-and-woman-standing-together.png"
+              />
+            </Grid>
+            <Grid
               xs={12}
               lg={6}
               css={{
-                transform: "rotate(-15deg)",
+                transform: "rotate(15deg)",
               }}
             >
-              <img alt="locations" src="/images/locations.svg" />
+              <NextLink href="#">
+                <Link>
+                  <img alt="homelab" src="/images/casual-life-3d-lab.png" />
+                </Link>
+              </NextLink>
             </Grid>
           </Grid.Container>
-          <Row justify="center" align="center">
-            <Mermaid
-              chart={`
-                graph RL
-                Blog[My Blog] --> Next[Next.js]
-                Blog --> NextUI[NextUI]
-                Blog --> Mermaid[Mermaidjs]
-                Next --> React[React]
-                React --> ts[TypeScript]
-                NextUI --> Geist[Geist]
-                Blog --> MDX[MDX]
-              `}
-            />
-          </Row>
         </Container>
         <Text>
           Here is <FancyLink href="/about" text="why and how" /> I built it.
+        </Text>
+        <Text>
+          Illustration by{" "}
+          <a href="https://icons8.com/illustrations/author/zD2oqC8lLBBA">
+            Icons 8
+          </a>{" "}
+          from <a href="https://icons8.com/illustrations">Ouch!</a>
         </Text>
       </Layout>
     </>
