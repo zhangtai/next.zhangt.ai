@@ -33,4 +33,21 @@ Go to `Services / Dynamic DNS / Settings` create one with inputs:
 
 ### Port Forward
 
-You will need to select a primary port for all the services(e.g. 1234), this will be listen by a frontend service.
+You will need to select a primary port for all the services(e.g. 1234), this will be listen by a frontend service. For a simple homelab with not to much and complex services one public service is able to serve all the services. In this post I will create only one.
+
+You may need to create an alias of the custom port in `Firewall / Aliases`, if you are not using standard HTTPS port for exposing, because some ISP not allowing opening 80 or 443 port.
+
+Go to `Firewall / NAT / Port Forward` and create a new rule as:
+
+- Interface: `WAN`
+- Protocol: `TCP`
+- Destination: `WAN net`
+- Destination port range: `<Port_Alias>`
+- Redirect target IP: `<OPNSENSE_LAN_IP_Alias>`
+- Redirect target port: `<Port_Alias>`
+- NAT reflection: `Enable`
+
+You will also need to set `Firewall / Settings / Advanced` on below field to enable NAT reflection:
+
+- Reflection for port forwards: `true`
+- Automatic outbound NAT for Reflection: `true`
