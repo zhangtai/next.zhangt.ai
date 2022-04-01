@@ -15,8 +15,6 @@ It's easy to setup just follow the [RKE2 official installation guide]. Here is s
 # Add proxy only if you have such dependency
 curl -sfL https://get.rke2.io | sudo https_proxy=http://192.168.3.1:8889 sh -
 
-sudo systemctl enable rke2-server.service
-
 sudo bash -c 'cat > /usr/local/lib/systemd/system/rke2-server.env <<EOF
 HOME=/root
 HTTP_PROXY=http://192.168.3.1:8889
@@ -24,8 +22,10 @@ HTTPS_PROXY=http://192.168.3.1:8889
 NO_PROXY=127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,.svc,.cluster.local
 EOF'
 
+sudo systemctl enable rke2-server.service
+
 sudo systemctl start rke2-server.service
-# journalctl -u rke2-server -f
+# sudo journalctl -u rke2-server -f
 sudo cat /var/lib/rancher/rke2/server/node-token
 
 # save /etc/rancher/rke2/rke2.yaml as token to communicate with cluster api
