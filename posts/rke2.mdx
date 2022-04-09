@@ -64,7 +64,7 @@ remote_port = 6443
 
 ```shell
 sudo apt update && sudo apt install -y nfs-common
-curl -sfL https://get.rke2.io | sudo https_proxy=http://192.168.3.1:8889 INSTALL_RKE2_TYPE="agent" sh -
+curl -sfL https://get.rke2.io | sudo https_proxy=http://192.168.3.1:8889 INSTALL_RKE2_TYPE="agent" INSTALL_RKE2_CHANNEL=latest sh -
 sudo systemctl enable rke2-agent.service
 sudo mkdir -p /etc/rancher/rke2/
 
