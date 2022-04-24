@@ -46,7 +46,7 @@ const Home: NextPage = () => {
                 <Link>
                   <img
                     alt="blog"
-                    src="/images/casual-life-3d-green-book-with-orange-ribbon.png"
+                    src="https://storage.googleapis.com/static.zhangt.ai/images/casual-life-3d-green-book-with-orange-ribbon.webp"
                   />
                 </Link>
               </NextLink>
@@ -56,7 +56,7 @@ const Home: NextPage = () => {
             <Grid xs={12} lg={6}>
               <img
                 alt="greeting"
-                src="/images/casual-life-3d-young-man-and-woman-standing-together.png"
+                src="https://storage.googleapis.com/static.zhangt.ai/images/casual-life-3d-young-man-and-woman-standing-together.webp"
               />
             </Grid>
             <Grid
@@ -68,7 +68,7 @@ const Home: NextPage = () => {
             >
               <NextLink href="#">
                 <Link>
-                  <img alt="homelab" src="/images/casual-life-3d-lab.png" />
+                  <img alt="homelab" src="https://storage.googleapis.com/static.zhangt.ai/images/casual-life-3d-lab.webp" />
                 </Link>
               </NextLink>
             </Grid>
