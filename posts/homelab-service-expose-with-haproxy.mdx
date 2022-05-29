@@ -87,6 +87,7 @@ I will show an example to expose code-server service with port `8080` on a local
 - Name or Prefix: `CODE-SERVER`
 - FQDN or IP: `192.168.1.2`
 - Port: `8080`
+- SSL: According to your servcie
 
 #### Backend Pool
 
@@ -112,6 +113,8 @@ As said, you will only create one public service
 - Name: `<e.g. homelab>`
 - Listen Addresses: `0.0.0.0:<Your_Port>`
 - Default Backend Pool: `none`
+- Enable SSL offloading: true
 - Certificates: `<The one created earlier>`
 - Default certificate: `<Same as Certificates>`
+- Enable HTTP/2: true
 - Rules: `<Select in the dropdown>`
