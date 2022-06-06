@@ -15,6 +15,13 @@ It's easy to setup just follow the [RKE2 official installation guide]. Here is s
 # Add proxy only if you have such dependency
 curl -sfL https://get.rke2.io | sudo https_proxy=http://192.168.3.1:8889 INSTALL_RKE2_CHANNEL=latest sh -
 
+sudo bash -c 'cat > /etc/default/rke2-server <<EOF
+CONTAINERD_HTTP_PROXY=http://192.168.3.1:8889
+CONTAINERD_HTTPS_PROXY=http://192.168.3.1:8889
+CONTAINERD_NO_PROXY=127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,.svc,.cluster.local
+EOF'
+
+# Or
 sudo bash -c 'cat > /usr/local/lib/systemd/system/rke2-server.env <<EOF
 HOME=/root
 HTTP_PROXY=http://192.168.3.1:8889
@@ -29,6 +36,16 @@ sudo systemctl start rke2-server.service
 sudo cat /var/lib/rancher/rke2/server/node-token
 
 # save /etc/rancher/rke2/rke2.yaml as token to communicate with cluster api
+```
+
+### On Proxmox
+
+Although it's not good to install on Proxmox instead of VM inside it, for POC purpose I tried to installed it on Proxmox. Below line is required to add to `/etc/network/interfaces`, under `auto vmbr0` section.
+
+Restart network with` /etc/init.d/networking restart` or with `systemd restart networking`.
+
+```
+up ip route add default via 192.168.3.1 dev vmbr0
 ```
 
 ### Remote connect via frp
